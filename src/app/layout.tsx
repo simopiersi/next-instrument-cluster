@@ -1,5 +1,13 @@
 import React from 'react';
 import './globals.css'; // If you have global styles
+import { Inter } from 'next/font/google';
+import { GridContainer } from './components/GridContainer';
+
+// Initialize Inter font
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const metadata = {
   title: 'Digital Instrument Cluster',
@@ -12,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={inter.className}>
+      <body style={{ margin: 0, padding: 0 }}>
         {/* First render the page content (black background) */}
         <div style={{ 
           position: 'absolute',
@@ -26,31 +34,9 @@ export default function RootLayout({
           {children}
         </div>
         
-        {/* Then render the grid on top with a higher z-index */}
-        <div className="p-4" style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          display: 'grid',
-          gridTemplateColumns: 'repeat(5, 1fr)', // 5 equal columns
-          gridTemplateRows: 'repeat(2, 1fr)',     // 2 equal rows
-          gap: '1rem',                             // Small gap between grid items
-          width: '1920px',                        // 8 units wide
-          height: '720px',                        // 3 units high
-          zIndex: 10,                             // Higher z-index to appear on top
-        }}>
-          {/* Grid slots - 10 total (5 columns × 2 rows) */}
-          <div className="grid-slot bg-zinc-800 p-4"></div>
-          <div className="grid-slot bg-zinc-800 p-4"></div>
-          <div className="grid-slot bg-zinc-800 p-4"></div>
-          <div className="grid-slot bg-zinc-800 p-4"></div>
-          <div className="grid-slot bg-zinc-800 p-4"></div>
-          <div className="grid-slot bg-zinc-800 p-4"></div>
-          <div className="grid-slot bg-zinc-800 p-4"></div>
-          <div className="grid-slot bg-zinc-800 p-4"></div>
-          <div className="grid-slot bg-zinc-800 p-4"></div>
-          <div className="grid-slot bg-zinc-800 p-4"></div>
-        </div>
+        {/* Grid container with keyboard navigation */}
+        <GridContainer />
+        
       </body>
     </html>
   );
